@@ -1,0 +1,153 @@
+<style type="text/css">
+    .portlet.light {
+        padding: 0px 10px 15px 20px;
+    }
+
+    .portlet.light > .portlet-title {
+        min-height: 20px;
+    }
+
+    .portlet.light > .portlet-title > .caption {
+        padding: 7px 0;
+    }
+
+    .portlet.light .portlet-body {
+        padding: 0;
+    }
+</style>
+
+<custom-spinner-bar class="page-spinner-bar" submitting="submitting">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+</custom-spinner-bar>
+<toaster-container></toaster-container>
+
+<div ng-controller="StockCtrl">
+
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{ alert.msg}}</alert>
+
+
+    <!--Category-->
+    <div class="row">
+
+        <div class="col-md-12" id="pnPart">
+            <div class="form-control-inline">
+                <div class="pull-right">
+                    <a href="javascript:;" class="btn btn-danger" confirmed-click="delete()"
+                       ng-confirm-click="Are you sure to delete?">
+                        <i class="fa fa-times"></i> DELETE
+                    </a>
+
+                </div>
+
+                <div class="form-group col-md-3" style="padding-left: 0px !important;">
+                    <div class="input-icon">
+                        <i class="fa fa-search"></i>
+                        <input type="text" class="form-control" ng-model="searchName"
+                               placeholder="Search Part ..."
+                               ng-model-options="{ debounce: 500 }">
+                    </div>
+                </div>
+                <div class="form-group col-md-3" style="padding-left: 0px !important;">
+                    <div class="input-icon">
+                        <i class="fa fa-search"></i>
+                        <input type="text" class="form-control" ng-model="searchPlan"
+                               placeholder="Search SC Plan ..."
+                               ng-model-options="{ debounce: 500 }">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="clearfix"></div>
+            <div ng-show="service.totalItems > 0">
+                <table class="table table-striped table-bordered table-advance table-hover customTable">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" ng-click="selectAll()" ng-model="checkBox"></th>
+                        <th>
+                            Part Number
+                        </th>
+                        <th>
+                            Description PN
+                        </th>
+                        <th>
+                            Manufacturer
+                        </th>
+                        <th>
+                            Manufacturer PN
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            SC Plan
+                        </th>
+                        <th>
+                            Product
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr ng-repeat="item in service.listData">
+                        <td align="center"><input type="checkbox" ng-click="check($index)"
+                                                  ng-model="service.arrayCheckBox[$index]">
+                        </td>
+                        <td>{{ item.part_pn}}</td>
+                        <td>{{ item.part_description}}</td>
+                        <td>{{ item.manufacturer_name}}</td>
+                        <td>{{ item.manufacturer_pn}}</td>
+                        <td><span class="text-success" ng-if="item.ready==0">used</span>
+                            <span class="text-danger" ng-if="item.ready==1">stock</span></td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.sc_plan_name}}</td>
+                        <td>{{item.product.name}}</td>
+                        <td align="center">
+                            <a ng-if="item.ready==0" href="javascript:;" class="btn btn-primary"
+                               confirmed-click="toStock($index)"
+                               ng-confirm-click="Are you sure?">
+                                <i class="fa fa-sign-out"></i>
+                            </a></td>
+                        <!--<td align="center" ng-if="item.ready==1">-->
+                        <!--<a href="javascript:;" class="btn btn-primary"-->
+                        <!--confirmed-click="toStock()"-->
+                        <!--ng-confirm-click="Are you sure?">-->
+                        <!--<i class="fa fa-reply"></i>-->
+                        <!--</a></td>-->
+                    </tr>
+                    </tbody>
+                </table>
+                <pagination total-items="service.totalItems" ng-model="currentPage"
+                            items-per-page="service.limit"
+                            on-select-page="setPage(page)"
+                            ng-change="pageChanged()"
+                            max-size="maxSize" class="pagination-sm" boundary-links="true"
+                            rotate="false">
+                </pagination>
+            </div>
+
+            <div class="clearfix" ng-show="service.totalItems == 0">
+                <div class="alert alert-info">
+                    <p class="text-center">No results found</p>
+                </div>
+            </div>
+
+            <div class="spinner"
+                 ng-show="partServices.isLoading">
+                <span us-spinner="{radius:8, width:5, length: 3, lines:9}"></span>
+
+                <p>Loading...</p>
+            </div>
+            <!--End data-->
+        </div>
+    </div>
+    <!--End category-->
+</div>

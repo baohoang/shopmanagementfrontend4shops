@@ -1,0 +1,114 @@
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()">&times;</button>
+    <h3 class="modal-title">Sản phẩm</h3>
+</div>
+<div class="modal-body">
+    <div id="info">
+        <h4>Thông tin</h4>
+
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="name">Tên:</label>
+
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="name" placeholder="Tên sản phẩm"
+                           ng-model="product.name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="price">Giá:</label>
+
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="price" placeholder="Giá sản phẩm"
+                           ng-model="product.price">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="sale_off">Giảm giá:</label>
+
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" id="sale_off" placeholder="Giảm giá"
+                           ng-model="product.sale_off">
+                </div>
+                <label class="control-label col-sm-1" for="discount">- %:</label>
+
+                <div class="col-sm-2">
+                    <input type="number" class="form-control" id="discount" placeholder="Giảm giá"
+                           ng-model="product.discount">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="quantity">Số lượng:</label>
+
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" id="quantity" placeholder="Số lượng sản phẩm"
+                           ng-model="product.quantity">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="colors">Màu:</label>
+
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="colors" placeholder="Màu sản phẩm"
+                           ng-model="product.colors">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="description">Mô tả:</label>
+
+                <div class="col-sm-6">
+                    <textarea class="form-control" rows="5" id="description" ng-model="product.description"></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="category">
+        <h4>Danh mục</h4>
+        <select ui-select2 ng-model="select2" data-placeholder="Pick a category">
+            <option ng-repeat="number in range" value="{{number.value}}">{{number.text}}</option>
+        </select>
+    </div>
+
+    <div id="images">
+        <h4>Ảnh (tối đa 3 hình ảnh)</h4>
+
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-2"></label>
+
+                <div class="col-sm-9">
+                    <div class="col-sm-3 thumbnail" ng-repeat="image in product.images">
+                        <button type="button" class="close btn-xs" mwl-confirm title="Xóa ảnh"
+                                message="Bạn có chắc muốn xóa ảnh này?" confirm-text="Có" cancel-text="Không"
+                                placement="left" button-type="danger" cancel-button-type="default"
+                                on-confirm="deleteImage(image,$index)">&times;</button>
+                        <input type="checkbox" ng-model="image.is_favicon" ng-true-value="1"
+                               ng-false-value="0" ng-change="selectedFavicon($index)">
+                        <img ng-src="{{image.src}}"
+                             class="img-rounded img-responsive center-block" alt="Product image">
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-hide="product.images.length>=3">
+                <label class="control-label col-sm-2"></label>
+
+                <div class="col-sm-3">
+                    <button class="btn btn-info" ng-click="showUploadView()">
+                        Upload
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="save()">Save</button>
+    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+</div>

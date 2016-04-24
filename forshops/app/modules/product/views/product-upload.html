@@ -1,0 +1,44 @@
+<style>
+    .cropArea {
+        background: #E4E4E4;
+        overflow: hidden;
+        width: 500px;
+        height: 350px;
+    }
+</style>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="close()">&times;</button>
+    <h3 class="modal-title">Upload hình ảnh</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-8">
+            <div ngf-drop ng-model="fileUpload" ngf-pattern="image/*"
+                 class="drop-box cropArea center-block" accept="image/*"
+                 data-toggle="tooltip" title="Thả file hình ảnh vào đây">
+                <img-crop image="fileUpload  | ngfDataUrl" area-type="square"
+                          result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+                </img-crop>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <img class="img-rounded img-responsive center-block" ng-src="{{croppedDataUrl}}"/>
+            </div>
+            <div class="caption">
+                <button class="btn btn-default center-block" ng-click="upload(croppedDataUrl,fileUpload.name)"
+                        ng-if="fileUpload!=null">
+                    Upload
+                </button>
+                <uib-progressbar ng-show="uploading" class="progress-striped" value="progress" type="warning">
+                    {{progress}}%
+                </uib-progressbar>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="close()">Close</button>
+</div>
