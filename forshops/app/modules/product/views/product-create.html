@@ -49,21 +49,19 @@
                     <input type="number" class="form-control" name="discount" id="discount" placeholder="Giảm giá"
                            ng-model="product.discount" required>
                 </div>
-                <div>
-                    <div ng-show="infoForm.sale_off.$dirty && infoForm.sale_off.$invalid">
-                        <label class="control-label text-danger" ng-show="infoForm.sale_off.$error.required">
-                            Chưa điền
-                        </label>
-                        <label class="control-label text-danger" ng-show="infoForm.sale_off.$error.number">
-                            Sai định dạng
-                        </label>
-                    </div>
-                    <div ng-show="infoForm.discount.$dirty && infoForm.discount.$invalid">
-                        <label class="control-label text-danger" ng-show="infoForm.discount.$error.required">Chưa
-                            điền</label>
-                        <label class="control-label text-danger" ng-show="infoForm.discount.$error.number">Sai định
-                            dạng</label>
-                    </div>
+                <div ng-show="infoForm.sale_off.$dirty && infoForm.sale_off.$invalid">
+                    <label class="control-label text-danger" ng-show="infoForm.sale_off.$error.required">
+                        Chưa điền
+                    </label>
+                    <label class="control-label text-danger" ng-show="infoForm.sale_off.$error.number">
+                        Sai định dạng
+                    </label>
+                </div>
+                <div ng-show="infoForm.discount.$dirty && infoForm.discount.$invalid">
+                    <label class="control-label text-danger" ng-show="infoForm.discount.$error.required">Chưa
+                        điền</label>
+                    <label class="control-label text-danger" ng-show="infoForm.discount.$error.number">Sai định
+                        dạng</label>
                 </div>
             </div>
 
@@ -124,45 +122,11 @@
         </form>
 
     </div>
-
-    <div id="images">
-        <h4>Ảnh (tối đa 3 hình ảnh)</h4>
-
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <label class="control-label col-sm-2"></label>
-
-                <div class="col-sm-9">
-                    <div class="col-sm-3 thumbnail" ng-repeat="image in product.images">
-                        <button type="button" class="close btn-xs" mwl-confirm title="Xóa ảnh"
-                                message="Bạn có chắc muốn xóa ảnh này?" confirm-text="Có" cancel-text="Không"
-                                placement="left" button-type="danger" cancel-button-type="default"
-                                on-confirm="deleteImage(image,$index)">&times;</button>
-                        <input type="checkbox" ng-model="image.is_favicon" ng-true-value="1"
-                               ng-false-value="0" ng-change="selectedFavicon($index)">
-                        <img ng-src="{{image.src}}"
-                             class="img-rounded img-responsive center-block" alt="Product image">
-
-                    </div>
-                </div>
-            </div>
-            <div class="form-group" ng-hide="product.images.length>=3">
-                <label class="control-label col-sm-2"></label>
-
-                <div class="col-sm-3">
-                    <button class="btn btn-info" ng-click="showUploadView()">
-                        Upload
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
-
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="create()"
             ng-disabled="!(infoForm.$valid&&categoryForm.$valid)">
-        Lưu lại
+        Thêm
     </button>
     <button class="btn btn-default" type="button" ng-click="cancel()">Hủy bỏ</button>
 </div>

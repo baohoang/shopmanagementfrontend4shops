@@ -72,6 +72,19 @@ myApp.service('ProductService', function ($http, CONFIG, toaster) {
                 'product': product.id
             };
             $http.delete(CONFIG.API_URL + 'forshops/products', {params: params}).then(success, error);
+        },
+        'createProduct': function (product, success, error) {
+            $http.post(CONFIG.API_URL + 'forshops/products', product).then(success, error);
+        },
+        'saveCategory': function (category, success, error) {
+            $http.put(CONFIG.API_URL + 'forshops/categories', category).then(success, error);
+        },
+        'createCategory': function (category, success, error) {
+            $http.post(CONFIG.API_URL + 'forshops/categories', category).then(success, error);
+        },
+        'deleteCategory': function (category, success, error) {
+            var params = {category: category.id};
+            $http.delete(CONFIG.API_URL + 'forshops/categories', {params: params}).then(success, error);
         }
     };
     return self;

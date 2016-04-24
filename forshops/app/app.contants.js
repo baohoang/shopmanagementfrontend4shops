@@ -7,5 +7,6 @@ myApp.constant("CONFIG", {
     "TOKEN": "Authorization",
     "NODE_SELECTED": "NodeSelected",
     "DATE_FORMAT": "dd/mm/yyyy",
-    "CURRENT_USER": "user"
+    "CURRENT_USER": "user",
+    "PRODUCT_IMAGE_DEFAULT": "http://localhost:8086/upload/images/products/default.png"
 });

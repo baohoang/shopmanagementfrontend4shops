@@ -1,3 +1,9 @@
+<style>
+    .editable-input.editable-has-buttons {
+        width: 100px;
+    }
+</style>
+
 <div class="row" xmlns="http://www.w3.org/1999/html">
     <div class="col-lg-12">
         <h1 class="page-header">Sản phẩm</h1>
@@ -10,24 +16,46 @@
             <div class="panel-heading">
                 Danh mục
                 <div class="pull-right">
-                    <a class="btn btn-default btn-xs" data-toggle="tooltip" title="Thêm">
+                    <a class="btn btn-default btn-xs" data-toggle="tooltip" title="Thêm"
+                       ng-click="showCreateCategory()">
                         <i class="fa fa-plus text-info"></i>
-                    </a>
-                    <a class="btn btn-default btn-xs" data-toggle="tooltip" title="Sửa">
-                        <i class="fa fa-pencil text-info"></i>
-                    </a>
-                    <a class="btn btn-default btn-xs" data-toggle="tooltip" title="Xóa">
-                        <i class="fa fa-times text-info"></i>
                     </a>
                 </div>
             </div>
             <div class="panel-body">
-                <div ng-repeat="category in service.listCategories | orderBy:'id'" class="checkbox">
-                    <label class="text-primary">
-                        <input type="checkbox" ng-model="category.checked" ng-change="selectCategory($index)">
-                        <span ng-bind="category.name"></span>
+                <div ng-repeat="category in service.listCategories" class="checkbox">
+                    <label>
+                        <input type="checkbox" id="selectCate" ng-model="category.checked"
+                               ng-change="selectCategory($index)">
+                        <a class="text-primary" href="#" editable-text="category.name" for="selectCate" e-required
+                           e-placeholder="Nhập tên"
+                           onaftersave="editCategory(category)">
+                            {{category.name}}
+                        </a>
+                    </label>
+
+                    <div class="pull-right" ng-show="category.checked">
+                        <a class="btn btn-default btn-xs" data-toggle="tooltip"
+                           mwl-confirm title="Xóa danh mục" confirm-text="Có" cancel-text="Không"
+                           message="Xóa danh mục sẽ xóa cả sản phẩm trong danh mục đó. Bạn có chắc muốn xóa ảnh này?"
+                           placement="left" button-type="danger" cancel-button-type="default"
+                           on-confirm="deleteCategory(category,$index)">
+                            <i class="fa fa-times text-info"></i>
+                        </a>
+                    </div>
+                </div>
+                <div ng-show="addingNewCategory">
+                    <label>
+                        <input type="checkbox" id="newCate" ng-model="newCategory.checked">
+                        <a class="text-primary" href="#" editable-text="newCategory.name" for="newCate" e-required
+                           e-placeholder="Nhập tên" e-form="addNewCategory" oncancel="cancelCreateCategory()"
+                           onaftersave="createCategory(newCategory)">
+                            {{newCategory.name}}
+                        </a>
                     </label>
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -36,20 +64,24 @@
             <div class="panel-heading">
                 Sản phẩm
                 <div class="pull-right">
-                    <input type="text" class="" ng-model="service.searchName" placeholder="Tìm kiếm tên">
-                    <a class="btn btn-primary btn-xs text-info" data-toggle="tooltip" title="Thêm mới">
+                    <input type="text" class="" ng-model="service.searchName" placeholder="Tìm kiếm tên"
+                           ng-show="searching">
+                    <button class="btn btn-xs btn-success btn-xs" data-toggle="tooltip" title="Tìm kiếm"
+                            ng-click="enableSearch()">
                         <i class="fa fa-search"></i>
-                    </a>
-                    <a class="btn btn-primary btn-xs text-info" data-toggle="tooltip" title="Thêm mới">
+                    </button>
+                    <button class="btn btn-success btn-xs" data-toggle="tooltip" title="Thêm mới"
+                            ng-click="createProduct()">
                         <i class="fa fa-plus"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="panel-body">
-                <div class="col-lg-4 col-md-4 text-center" ng-repeat="product in service.listProducts">
+                <div class="col-lg-4 col-md-4 text-center"
+                     ng-repeat="product in service.listProducts track by product.id">
                     <div class="thumbnail">
-                        <img src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSCEGicawLQvfTRcc9B3rM3u1KR0mUtfcDR1TtH1Se0JljMyw_a"
-                             class="img-rounded img-responsive center-block" alt="Product image">
+                        <img ng-src="{{chooseImage(product)}}" class="img-rounded img-responsive center-block"
+                             alt="Product Image">
 
                         <div class="caption">
                             <div class="row">
@@ -74,7 +106,7 @@
                                     Sửa
                                 </a>
                                 <a class="btn btn-danger" data-toggle="tooltip" title="Xóa"
-                                   mwl-confirm title="Xóa ảnh" message="Bạn có chắc muốn xóa sản phẩm này?"
+                                   mwl-confirm title="Xóa sản phẩm" message="Bạn có chắc muốn xóa sản phẩm này?"
                                    confirm-text="Có" cancel-text="Không"
                                    placement="top" button-type="danger" cancel-button-type="default"
                                    on-confirm="deleteProduct(product,$index)">
@@ -97,6 +129,4 @@
         </div>
 
     </div>
-
-
 </div>
