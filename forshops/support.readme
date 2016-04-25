@@ -1,0 +1,8 @@
+forshop:
+check lib trong bower nếu chưa có chạy command: bower install/update
+
+api:
+bước 1: chạy copy .env.example .env
+bước 2: chạy composer install 
+bước 3: chạy php artisan migrate
+bước 4: chạy domain/public/api/v1/forshops/insert để thêm tài khoản login forshop
