@@ -101,7 +101,6 @@ angular.module('ECSApp').controller('ProductController', function ($scope, Produ
     };
 
     $scope.pageChanged = function () {
-        console.log('aaa');
         if ($scope.selectedCategory > 0) {
             ProductService.loadProductByCategory($scope.selectedCategory);
         } else {

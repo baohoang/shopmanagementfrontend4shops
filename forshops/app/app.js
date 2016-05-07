@@ -21,7 +21,8 @@ var myApp = angular.module('ECSApp', [
     'angular-jwt',
     'ngImgCrop',
     'ngFileUpload',
-    'xeditable'
+    'xeditable',
+    'ngTouch'
 ]);
 myApp.run(function ($rootScope, $location, $state, $localStorage, jwtHelper) {
     $rootScope.$on('$stateChangeStart', function (evt, to, params) {

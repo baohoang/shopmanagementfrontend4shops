@@ -5,7 +5,6 @@ myApp.service('ProductService', function ($http, CONFIG, toaster) {
         'listProducts': [],
         'currentPage': 1,
         'totalItems': 0,
-        'limit': 9,
         'previousCateID': 0,
         'searchName': '',
         'loadCategories': function () {

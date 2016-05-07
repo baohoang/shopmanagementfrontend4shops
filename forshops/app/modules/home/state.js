@@ -1,5 +1,5 @@
 /**
- * Created by Hoàng on 4/14/2016.
+ * Created by Hoï¿½ng on 4/14/2016.
  */
 myApp.config(['$stateProvider', function ($stateProvider) {
     $stateProvider.state('home', {
@@ -30,7 +30,7 @@ myApp.config(['$stateProvider', function ($stateProvider) {
                     files: [
                         '/modules/home/controllers/HomeController.js',
                         '/modules/home/controllers/HeaderController.js',
-                        '/modules/home/controllers/SidebarController.js',
+                        '/modules/home/controllers/LeftMenuController.js',
                         '/modules/home/services/HomeService.js'
                     ]
                 });
